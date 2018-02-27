@@ -322,6 +322,34 @@
         currentPage = 0;
         checkButtons();
     }
+	
+	function onAdd(){
+        let email = document.querySelector('#eml').value;
+        let userName = document.querySelector('#usr').value;
+        let lastName = document.querySelector('#lst').value;
+        let age = document.querySelector('#age').value;
+        let city = document.querySelector('#city').value;
+        let gender = document.querySelector('#male').checked ? 1 : 0;
+        let status = !document.querySelector('#status').checked;
+        if(!email.trim() || !userName.trim() || !lastName.trim() || !age.trim() ||!city.trim()){
+            alert('All fields are required');
+            return false;
+        }
+
+        createUser(email, userName,lastName,age,city,gender,status);
+    }
+
+    function createUser(email, name,lastname,age,city,gender,status) {
+        let lasIndex = users.length-1;
+        users.push({
+            id: users[lasIndex].id + 1,
+            name,lastname,email,age,gender,city,status,controls:''
+        });
+        document.querySelector("tbody").innerHTML = "";
+        render(users,4,0);
+        currentPage = 0;
+        checkButtons();
+    }
 
     render(users,limit,currentPage);
 
