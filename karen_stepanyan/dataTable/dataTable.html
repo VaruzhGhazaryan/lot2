@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <input type="number" id="options" placeholder="Enter number" class="form-control">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#newPerson">CREATE</button>
+
+        <div class="modal fade" id="newPerson" role="dialog">
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add new person</h4>
+                    </div>
+                    <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="usr">Name:</label>
+                                    <input type="text" class="form-control" id="usr" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lst">Lastname:</label>
+                                    <input type="text" class="form-control" id="lst" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="eml">Email:</label>
+                                    <input type="email" class="form-control" id="eml" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="age">Age:</label>
+                                    <input type="number" class="form-control" id="age" required>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="gender" id="male" checked>Male</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="gender">Female</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">City:</label>
+                                    <input type="text" class="form-control" id="city" required>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="status" id="status" checked>Offline</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="status">Online</label>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success form-control" data-dismiss="modal" onclick="onAdd()">Create</button>
+                                </div>
+
+                            </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <hr>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>name</th>
+                <th>lastname</th>
+                <th>email</th>
+                <th>age</th>
+                <th>gender</th>
+                <th>city</th>
+                <th>status</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+
+        </table>
+        <nav aria-label="...">
+            <ul class="pager">
+                <li><button class="previous btn btn-default">Previous</button></li>
+                <li><button class="next btn btn-default">Next</button></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<script>
+    let limit = 4;
+
+    let users = [
+        {
+            id:0,
+            name:"George",
+            lastname:"Washington",
+            email:"george@washington.com",
+            age:286,
+            gender:1,
+            city:"Westmoreland County",
+            status:false,
+            controls:''
+
+        },
+        {
+            id:1,
+            name:"George ",
+            lastname:"Bush",
+            email:"george@bush.com",
+            age:72,
+            gender:1,
+            city:"New Haven",
+            status:true,
+            controls:''
+        },
+        {
+            id:2,
+            name:"Donald",
+            lastname:"Trump",
+            email:"donald@trump.com",
+            age:72,
+            gender:1,
+            city:"New York",
+            status:true,
+            controls:''
+        },
+        {
+            id:3,
+            name:"Barack",
+            lastname:"Obama",
+            email:"barack@obama.com",
+            age:57,
+            gender:1,
+            city:"Honolulu",
+            status:true,
+            controls:''
+        },
+        {
+            id:4,
+            name:"Abraham",
+            lastname:"Lincoln",
+            email:"abraham@lincoln.com",
+            age:209,
+            gender:1,
+            city:" Hodgenville",
+            status:false,
+            controls:''
+        },
+        {
+            id:5,
+            name:"Bill",
+            lastname:"Clinton",
+            email:"bill@clinton.com",
+            age:72,
+            gender:1,
+            city:" Hope",
+            status:true,
+            controls:''
+        },
+        {
+            id:6,
+            name:"Franklin",
+            lastname:"Roosevelt",
+            email:"franklin@roosevelt.com",
+            age:136,
+            gender:1,
+            city:" New York",
+            status:false,
+            controls:''
+        },
+        {
+            id:7,
+            name:"Jimmy",
+            lastname:"Carter",
+            email:"jimmy@carter.com",
+            age:94,
+            gender:1,
+            city:"Plains",
+            status:true,
+            controls:''
+        },
+        {
+            id:8,
+            name:"Richard",
+            lastname:"Nixon",
+            email:"richard@nixon.com",
+            age:105,
+            gender:1,
+            city:"Yorba Linda",
+            status:false,
+            controls:''
+        },
+
+
+
+    ];
+    let currentPage = 0;
+
+    document.querySelector(".next").addEventListener("click", function (e) {
+        pagination(e)
+    });
+    document.querySelector(".previous").addEventListener("click", function (e) {
+        pagination(e)
+    });
+    document.querySelector("#options").addEventListener("input", function () {
+        if(+this.value<1 || this.value === 'e'){
+            return false;
+        }
+        limit = this.value;
+        currentPage = 0;
+        let table = document.querySelector("tbody");
+        table.innerHTML = "";
+        render(users,+limit,currentPage);
+        checkButtons();
+    });
+    document.querySelector('form').addEventListener('submit', e=>{
+        e.preventDefault();
+    });
+
+
+    if(currentPage === 0){
+        document.querySelector(".previous").disabled = true;
+    }
+
+    function render(users, limit,start) {
+        let table = document.querySelector("tbody");
+        for(let i = start;i<limit+start;i++){
+            let tr = document.createElement("tr");
+            for(let key in users[i]){
+                let td = document.createElement("td");
+                tdText = document.createTextNode(users[i][key]);
+                if(key === "id"){
+                    id =users[i][key];
+                    tdText = document.createTextNode(users[i][key]+1);
+                }
+                if(key === "status"){
+                    if(users[i][key] === true){
+                        tdText = document.createTextNode("online");
+                        td.style.color = "green";
+                    }else{
+                        tdText = document.createTextNode("offline");
+                        td.style.color = "red";
+                    }
+                }
+                if(key === "gender"){
+                    let img = document.createElement("img");
+                    img.width = "20";
+                    tdText = document.createTextNode("");
+                    if(users[i][key] === 1){
+                        img.src = "https://png.icons8.com/nolan/2x/male.png";
+
+                    }else{
+                        img.src = 'http://clipground.com/images/man-symbol-transparent-clipart-18.png'
+                    }
+                    td.appendChild(img);
+                }
+                if(key === 'controls'){
+                     tdText=  `<button class="btn btn-danger delete" onclick="onDelete(${id})">X</button> <button class="btn btn-success edit">E</button>`;
+
+                }
+                if(key === 'controls'){
+                    td.innerHTML = tdText
+                }else{
+                    td.appendChild(tdText);
+                }
+
+                tr.appendChild(td);
+
+            }
+
+
+
+            table.appendChild(tr)
+        }
+    }
+
+    function pagination(e) {
+        e.preventDefault();
+        if(e.target.innerText === "Next"){
+            currentPage++;
+        }
+        else{
+            currentPage--
+        }
+        checkButtons();
+
+        document.querySelector("tbody").innerHTML = "";
+        render(users, +limit,(currentPage)*limit);
+    }
+
+    function checkButtons() {
+
+        if(currentPage > 0){
+            document.querySelector(".previous").disabled = false;
+        }
+        else if(currentPage === 0){
+            document.querySelector(".previous").disabled = true;
+        }
+        if(currentPage < Math.ceil(users.length / limit)-1){
+            document.querySelector(".next").disabled = false;
+        }
+        else {
+            document.querySelector(".next").disabled = true;
+        }
+    }
+
+    
+
+    render(users,limit,currentPage);
+
+
+
+</script>
+</body>
+</html>
