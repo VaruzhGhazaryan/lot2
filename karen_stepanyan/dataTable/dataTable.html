@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row">
         <input type="number" id="options" placeholder="Enter number" class="form-control">
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#newPerson">CREATE</button>
+        <button type="button" class="btn btn-info" data-toggle="modal" onclick="document.querySelector('#modalBTN').textContent = 'Create'; document.querySelector('#title').textContent = 'Add new person'" data-target="#newPerson">CREATE</button>
 
         <div class="modal fade" id="newPerson" role="dialog">
             <div class="modal-dialog">
@@ -18,7 +18,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add new person</h4>
+                        <h4 class="modal-title" id="title">Add new person</h4>
                     </div>
                     <div class="modal-body">
                             <form>
@@ -42,20 +42,20 @@
                                     <label><input type="radio" name="gender" id="male" checked>Male</label>
                                 </div>
                                 <div class="radio">
-                                    <label><input type="radio" name="gender">Female</label>
+                                    <label><input type="radio" name="gender" id="female">Female</label>
                                 </div>
                                 <div class="form-group">
                                     <label for="city">City:</label>
                                     <input type="text" class="form-control" id="city" required>
                                 </div>
                                 <div class="radio">
-                                    <label><input type="radio" name="status" id="status" checked>Offline</label>
+                                    <label><input type="radio" name="status" id="offline" checked>Offline</label>
                                 </div>
                                 <div class="radio">
-                                    <label><input type="radio" name="status">Online</label>
+                                    <label><input type="radio" name="status" id="online">Online</label>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-success form-control" data-dismiss="modal" onclick="onAdd()">Create</button>
+                                    <button type="submit" class="btn btn-success form-control" id="modalBTN" data-dismiss="modal" onclick="onAdd()">Create</button>
                                 </div>
 
                             </form>
@@ -99,7 +99,7 @@
 
 <script>
     let limit = 4;
-
+   
     let users = [
         {
             id:0,
@@ -206,6 +206,8 @@
 
     ];
     let currentPage = 0;
+	let isEditing = false;
+    let Oid;
 
     document.querySelector(".next").addEventListener("click", function (e) {
         pagination(e)
@@ -227,7 +229,10 @@
     document.querySelector('form').addEventListener('submit', e=>{
         e.preventDefault();
     });
-
+	$('#newPerson').on('hidden.bs.modal', function () {
+        document.querySelector('#eml').value =  document.querySelector('#usr').value = document.querySelector('#lst').value = document.querySelector('#age').value = document.querySelector('#city').value = '';
+        document.querySelector('#male').checked = document.querySelector('#offline').checked = true;
+    });
 
     if(currentPage === 0){
         document.querySelector(".previous").disabled = true;
@@ -266,7 +271,7 @@
                     td.appendChild(img);
                 }
                 if(key === 'controls'){
-                     tdText=  `<button class="btn btn-danger delete" onclick="onDelete(${id})">X</button> <button class="btn btn-success edit">E</button>`;
+                     tdText=  `<button class="btn btn-danger delete" onclick="onDelete(${id})">X</button> <button data-toggle="modal" data-target="#newPerson" class="btn btn-success edit" onclick="onEdit(${id}) ">E</button>`;
 
                 }
                 if(key === 'controls'){
@@ -324,19 +329,24 @@
     }
 	
 	function onAdd(){
-        let email = document.querySelector('#eml').value;
-        let userName = document.querySelector('#usr').value;
-        let lastName = document.querySelector('#lst').value;
-        let age = document.querySelector('#age').value;
-        let city = document.querySelector('#city').value;
-        let gender = document.querySelector('#male').checked ? 1 : 0;
-        let status = !document.querySelector('#status').checked;
-        if(!email.trim() || !userName.trim() || !lastName.trim() || !age.trim() ||!city.trim()){
-            alert('All fields are required');
-            return false;
+        if(isEditing){
+            onSave()
         }
+        else{
+            let email = document.querySelector('#eml').value;
+            let userName = document.querySelector('#usr').value;
+            let lastName = document.querySelector('#lst').value;
+            let age = document.querySelector('#age').value;
+            let city = document.querySelector('#city').value;
+            let gender = document.querySelector('#male').checked ? 1 : 0;
+            let status = !document.querySelector('#offline').checked;
+            if(!email.trim() || !userName.trim() || !lastName.trim() || !age.trim() ||!city.trim()){
+                alert('All fields are required');
+                return false;
+            }
 
-        createUser(email, userName,lastName,age,city,gender,status);
+            createUser(email, userName,lastName,age,city,gender,status);
+        }
     }
 
     function createUser(email, name,lastname,age,city,gender,status) {
@@ -349,6 +359,55 @@
         render(users,4,0);
         currentPage = 0;
         checkButtons();
+    }
+	
+	 function onEdit(id){
+        Oid = id;
+        document.querySelector('#modalBTN').textContent = "Save";
+        document.querySelector('#title').textContent = 'Edit person';
+        isEditing = true;
+        let current;
+        for(let i = 0;i<users.length;i++){
+            if(users[i].id === id){
+                current = users[i];
+            }
+        }
+        document.querySelector('#eml').value = current.email;
+        document.querySelector('#usr').value = current.name;
+        document.querySelector('#lst').value = current.lastname;
+        document.querySelector('#age').value = current.age;
+        document.querySelector('#city').value = current.city;
+        if(current.gender === 1){
+            document.querySelector('#male').checked  = true;
+        }else {
+            document.querySelector('#female').checked = true;
+        }
+        if(current.status){
+            document.querySelector('#online').checked = true;
+        }else{
+            document.querySelector('#offline').checked = true;
+        }
+
+    }
+
+    function onSave(){
+        for(let i=0;i<users.length;i++){
+            if(users[i].id == Oid){
+                users[i].name = document.querySelector('#usr').value;
+                users[i].lastname = document.querySelector('#lst').value;
+                users[i].age =  document.querySelector('#age').value;
+                users[i].city =  document.querySelector('#city').value;
+                users[i].email =  document.querySelector('#eml').value;
+                users[i].gender = document.querySelector('#male').checked ? 1 : 0;
+                users[i].status = !document.querySelector('#offline').checked
+                break;
+            }
+        }
+        document.querySelector("tbody").innerHTML = "";
+        render(users,4,0);
+        currentPage = 0;
+        checkButtons();
+        isEditing = false;
     }
 
     render(users,limit,currentPage);
