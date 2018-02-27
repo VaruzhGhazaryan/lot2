@@ -315,7 +315,13 @@
         }
     }
 
-    
+    function onDelete(id) {
+        users = users.filter(person => person.id != id);
+        document.querySelector("tbody").innerHTML = "";
+        render(users,4,0);
+        currentPage = 0;
+        checkButtons();
+    }
 
     render(users,limit,currentPage);
 
