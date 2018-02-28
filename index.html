@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="myFirstApp">
+<head>
+	<title>My First AngularJs App</title>
+
+	<link rel="stylesheet" type="text/css" href="./libraries/bootstrap/css/bootstrap.min.css">
+	
+	<script type="text/javascript" src="./libraries/angular.min.js"></script>
+
+	
+</head>
+<body ng-controller="listCtrl">
+<div class="container">
+<table class="table">
+		<tr ng-repeat="item in model track by $index">
+			<td>
+				{{ item + ' ' +  $index }}	
+			</td>
+		</tr>
+</table>	
+</div>
+
+
+<!-- Libraries -->
+	<script type="text/javascript" src="./libraries/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="./libraries/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Components -->
+	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="./controllers/list.ctrl.js"></script>
+</body>
+</html>
