@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group show_entires">
+        <span class="col-lg-1 col-md-2 col-sm-2 col-xs-2"><b>show </b></span>
+        <input class="col-lg-1 col-md-2 col-sm-2 col-xs-2 inputText_color" type="number"
+               value="10"
+               id="input_entires"
+               min="1" max=""
+               oninput="update()"/>
+        <span class="col-lg-1 col-md-2 col-sm-2 col-xs-2"><b> entires</b></span>
+        <span class="col-lg-7 col-md-4 col-sm-4 col-xs-4" id="note"></span>
+        <button class="col-lg-2 col-md-2 col-sm-2 col-xs-2" type="button" class="btn btn-default btn-lg" id="myBtn">Add
+            user
+        </button>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <table class="table table-hover " id="tbl">
+            <thead>
+            <tr class="border item_style">
+                <th class="border item_style">Id</th>
+                <th class="border item_style">Name</th>
+                <th class="border item_style">Lastname</th>
+                <th class="border item_style">Email</th>
+                <th class="border item_style">Age</th>
+                <th class="border item_style">Gender</th>
+                <th class="border item_style">City</th>
+                <th class="border item_style">Status</th>
+                <th class="border item_style">Del.</th>
+
+            </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row" id="btn">
+        <button class="col-lg-1 col-md-2 col-sm-4 col-xs-5 btn btn-link btn_style" value="prev" type="button"
+                id="prevBtn"
+                onclick="prevPage()"><b><= PREV</b></button>
+        <div class="col-lg-10 col-md-8 col-sm-4 col-xs-2"></div>
+        <button class="col-lg-1 col-md-2 col-sm-4 col-xs-5 btn btn-link btn_style" value="next" type="button"
+                id="nextBtn"
+                onclick="nextPage()"><b>NEXT =></b></button>
+    </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4> ADD NEW USER</h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="id"> ID</label>
+                            <input type="text" class="form-control" id="id" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+                            <input type="text" class="form-control" id="usrname" placeholder="Enter name">
+                        </div>
+                        <div class="form-group">
+                            <label for="lname"> Lastname</label>
+                            <input type="text" class="form-control" id="lname" placeholder="Enter lastname">
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><span class="glyphicon glyphicon-eye-open"></span>Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" class="form-control" id="age" placeholder="Enter age">
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-info"  for="male">
+                                    <input type="radio" name="options" id="male"  value="0"> male
+                                </label>
+                                <label class="btn btn-info" for = "female">
+                                    <input type="radio" name="options" id="female" value="1"> female
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control" id="city" placeholder="Enter city">
+                        </div>
+                        <div class="form-group">
+                            <label for="st">Status</label>
+                            <input type="text" class="form-control" id="st" placeholder="Enter status` true or false">
+                        </div>
+
+
+
+
+                        <button type="submit" data-dismiss="modal" class="btn btn-success btn-block" id="addBtn">
+                            ADD
+                        </button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span
+                            class="glyphicon glyphicon-remove"></span> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
