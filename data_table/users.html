@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>users</title>
+	<style>
+		table {
+			margin: 10px;
+			border-collapse: collapse;
+			border: 1px solid;
+			text-align: center;
+			padding: 8px;
+		}
+		td {
+			border: 1px solid;
+			height: 20px;
+			width: 70px;
+		}
+		div, .btnLeft {
+			margin-left: 100px;
+
+		}
+		.pagebtn {
+			display: none;
+		}
+	</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body class="container">
+	<div>
+		<input type="number" id='inputNum' value='0' style="text-align: right;">
+		<input type="button" class="btnOk" value="Ok" onclick="Tablist()">
+	</div>
+	<table id='table'>
+
+	</table>
+<divdiv>
+<input type="button" class="pagebtn" value="previous page" onclick="goPreviousPage()">
+<input type="button" class="pagebtn" value="next page" onclick="goNextPage()">
+
+
+
+
+
+	<script src='users.js'></script>
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</body>
+</html>
