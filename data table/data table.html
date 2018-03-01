@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href=".//lib/bootstrap.css">
+	<link rel="stylesheet" href="style.css">
+	<script src=".//lib/jquery-3.3.1.min.js"></script>
+  	<script src=".//lib/bootstrap.min.js"></script>
+
+<style>
+
+</style>
+
+</head>
+<body>
+	<table class="table">
+		 <thead>
+     		<tr>
+	       		<th>ID</th>
+				<th>Name</th>
+				<th>Lastname</th>
+				<th>Age</th>
+				<th>Gender</th>
+				<th>City</th>
+				<th>Email</th>
+				<th>Status</th>
+				<th>Remove</th>
+				<th>Edit</th>
+      		</tr>
+    	</thead>
+	</table>
+	<input type="number" oninput="oninp()" class="form-control col-sm-3" id = "items" placeholder="Table's items" disabled>
+
+	<ul class="pagination pager">
+		<li class="next" onclick="newpage('next')"><a href="#">Next &rarr;</a></li>
+		<li class="previous" onclick="newpage('prev')"><a href="#">&larr; Prev</a></li>
+		
+	</ul>
+
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		    <div class="modal-content modal-dialog" role="document">
+		      <div class="modal-header m_header">
+		      	<img src=".//img/add1.png" style="width: 70px; height: 70px" class="add_module">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+		        <h3 class="modal-title col-sm-10" id="myModalLabel" style="margin-top: 6%">Add information</h3>
+		      </div>
+		      	<div class="modal-body div">
+		      		<form>
+			       		<input type="text" id="name" class="modal_input form-control" placeholder="Name"> <br> <br>
+			       		<input type="text" id="lastname" class="modal_input form-control" placeholder="Lastname"> <br> <br>
+			       		<input type="text"  id="age" class="modal_input form-control" placeholder="Age"> <br> <br>
+			       		<div class="_div">
+			       			<input type="radio" id="male" class="modal_radio">Male</input>
+			       			<input type="radio" id="female" class="modal_radio" name="optradio">Female</input> <br> <br>
+			       		</div>
+			       		<input type="text" id="city" class="modal_input form-control" placeholder="City"> <br> <br>
+			       		<input type="text"  id="email" class="modal_input form-control" placeholder="Email"> <br> <br>
+			       		<div class="_div">
+				       		<input type="radio"  id="online" class="modal_radio radio-inline"  name="optradio">Online</input>
+				       		<input type="radio"  id="offline" class="modal_radio radio-inline"  >Offline</input> <br> <br>
+				       	</div>	
+					</form>
+
+		      </div>
+		      <div class="modal-footer div">
+		        <button type="button" class="btn btn-primary my_btn" onclick="close()" data-dismiss="modal" style="background-color: #566068">Close</button>
+		        <button type="button" class="btn btn btn-success my_btn" style=" background-color: #8d9e81" onclick="add_item()">Save</button>
+		      </div>
+		    
+		  </div>
+		</div>
+
+	<script>
+		var id = 1;
+		var array = ['',
+		
+		{ id: id++,
+		name: 'Վլադիմիր' ,
+		lastname: 'Մխիթարյան',
+		age: 27,
+		gender: 1,
+		city: 'Yerevan',
+		email: 'Email@gmail.com',
+		status: 1 ,
+		remove: "",
+		edit: "",},
+
+		{ id: id++,
+		name: 'Լիլյա' ,
+		lastname: 'Մելքոնյան',
+		age: 23,
+		gender: 0,
+		city: 'Yerevan',
+		email: 'Email@gmail.com',
+		status: 1 ,
+		remove: "",
+		edit: "",
+		},
+
+		{ id: id++,
+		name: 'Մհեր',
+		lastname: 'Կարապետյան',
+		age: 22,
+		gender: 1,
+		city: 'Gyumri',
+		email: 'Email@gmail.com',
+		status: 1 ,
+		remove: "",
+		edit: "",
+
+		},
+		
+
+		{ id: id++,
+		name: 'Անժելա' ,
+		lastname: 'Օրուջյան',
+		age: 21,
+		gender: 0,
+		city: 'Gyumri',
+		email: 'Email@gmail.com',
+		status: 0 ,
+		remove: "",
+		edit: "",},
+
+		{ id: id++,
+		name: 'Կարեն' ,
+		lastname: 'Ստեփանյան',
+		age: 20,
+		gender: 1,
+		city: 'Gyumri',
+		email: 'Email@gmail.com',
+		status: 1 ,
+		remove: "",
+		edit: "",},
+		
+		{ id: id++,
+		name: 'Մկրտիչ' ,
+		lastname: 'Աճեմյան',
+		age: 28,
+		gender: 1,
+		city: 'Gyumri',
+		email: 'Email@gmail.com',
+		status: 0 ,
+		remove: "",
+		edit: "",},
+
+		{ id: id++,
+		name: 'էդգար' ,
+		lastname: '',
+		age: 26,
+		gender: 1,
+		city: 'Gyumri',
+		email: 'Email@gmail.com',
+		status: 1,
+		remove: "",
+		edit: "",},
+
+		{ id: id++,
+		name: 'Անժելա' ,
+		lastname: '',
+		age: 24,
+		gender: 0,
+		city: 'Gyumri',
+		email: 'Email@gmail.com',
+		status: 0 ,
+		remove: "",
+		edit: "",},
+
+		{ id: id++,
+		name: 'Լաուրա' ,
+		lastname: '',
+		age: 17,
+		gender: 0,
+		city: 'Gyumri',
+		email: 'Email@gmail.com',
+		status: 0 ,
+		remove: "",
+		edit: "",},
+
+		{ id: id++,
+		name: 'Խաչիկ' ,
+		lastname: '',
+		age: 26,
+		gender: 1,
+		city: 'Gyumri',
+		email: 'Email@gmail.com',
+		status: 1, 
+		remove: "",
+		edit: "" }
+		]
+
+		
+		var table = document.querySelector("table");
+		var current_page = 1;
+		var max = 5;
+		var tbody = document.createElement('tbody');
+		function oninp(){
+			max =  document.getElementById('items').value;
+			console.log(max)
+			return max
+		}
+		function myfunction(array, max, current_page) {
+			var tr;
+			var value = 0;
+			for (var i = current_page; i < current_page + max; i++) {
+				tr = document.createElement("tr");
+				for (var j in array[i] ) {
+				var td = document.createElement("td");
+				var text = document.createTextNode(array[i][j]);
+				var uid;
+					if (j == 'id') {
+						uid = array[i]['id'];
+					}
+				td.appendChild(text);
+				tr.appendChild(td);
+					if (j == "gender") {
+						if (array[i][j] == 0) {
+							td.innerHTML="<img src ='.//img/female.png'>"
+						}
+						else if (array[i][j] == 1) {		
+							td.innerHTML="<img src ='.//img/male.png'>"
+						}
+					}
+					else if(j == 'status') {
+						if (array[i][j] == 0) {
+							td.innerText= "Offline";
+							td.style.color = "#c55757";	
+						}
+						else if (array[i][j] == 1) {
+							td.innerText= "Online";
+							td.style.color = "#2b8910";
+						}
+					}
+					else if(j == 'remove') {
+							td.innerHTML= '<img src =".//img/remove.png" onclick = "onremove(' +  uid + ')">';
+							td.setAttribute("class", "remove");
+							td.setAttribute("value", ++value + "");	
+							
+							td.onclick = function(){
+								this.style.backgroundColor = '#000000';
+								this.style.transition = '0.3s';
+								this.style.opacity = '0.7';
+							}		
+					}
+					else if(j == 'edit') {
+							td.innerHTML='<img src =".//img/edit.png" onclick = "onedit(' +  uid + ')">';
+							td.setAttribute("class", "edit");
+							td.setAttribute('data-toggle', 'modal');
+							td.setAttribute('data-target', '#myModal');
+		}	
+				}	
+				tbody.appendChild(tr);
+				table.appendChild(tbody);
+				}
+			}	
+		myfunction(array, max, current_page);
+		
+		var add =document.createElement('img');
+		add.setAttribute('src', './/img/add1.png');
+		add.setAttribute('class', 'addbutton');
+		add.setAttribute('data-toggle', 'modal');
+		add.setAttribute('data-target', '#myModal');
+		add.onclick = function(){
+			document.querySelector('h3').innerText = 'Add information';
+		}
+		document.body.appendChild(add);       
+
+	       	if (current_page == 1) {document.querySelector('.previous').setAttribute('class', 'disabled')
+	         }
+	     	else { document.querySelector('.previous').setAttribute('class', 'active');}
+	       
+			
+		function newpage(arg) {
+
+			if(arg == "next") {
+				current_page++ ;
+				if(Math.ceil(array.length/max)-1 <= current_page){
+	     			document.querySelector('.next').setAttribute('class', 'disabled')}
+			}
+			else if(arg == "prev") {
+				current_page--;
+				
+		}
+			document.querySelector('tbody').innerHTML = "";
+			myfunction(array, max, ((current_page-1)*max+1));  
+}
+		function add_item() {
+
+			var name = document.getElementById("name").value;
+			var lastname = document.getElementById("lastname").value;
+			var age = document.getElementById("age").value;
+			var male = document.getElementById("male").checked;
+			var female = document.getElementById("female").checked;
+			var city = document.getElementById("city").value;
+			var email = document.getElementById("email").value;
+			var offline = document.getElementById("offline").checked;
+			var online = document.getElementById("online").checked;
+			var gender;
+			var status;
+			if (male){
+				gender =  1;
+			}
+			if (female) {
+				gender =  0;
+			}
+			if (online){
+				status =  1;
+			}
+			if (offline) {
+				status =  0;
+			}		
+			var new_obj = {
+							id: id++,
+							'name': name ,
+							'lastname': lastname,
+							'age': age,
+							'gender': gender,
+							'city': city,
+							'email': email,
+							'status': status ,
+							'remove': "",
+							'edit': "",
+							}
+
+			myfunction(array.push(new_obj), max, current_page);
+			name = ''; lastname = ''; age = ''; email = ''; city = '';
+			function close() {
+
+			}
+
+		}
+		function onremove(id) {
+			array = array.filter(function(person){
+				return person.id != id;
+			})
+			tbody.innerHTML = '';
+			myfunction(array, max, current_page);
+		}
+		function onedit(id){
+			document.querySelector('h3').innerText = 'Change information';
+				var name = document.getElementById("name");	
+				var lastname = document.getElementById("lastname");
+				var age = document.getElementById("age");
+				var male = document.getElementById("male");
+				var female = document.getElementById("female");
+				var city = document.getElementById("city");
+				var email = document.getElementById("email");
+				var offline = document.getElementById("offline");
+				var online = document.getElementById("online");
+				var gender;
+				var status;
+				
+				for (var i = 1; i < array.length; i++) {
+					if (array[i]['id'] == id) {
+						name.value = array[i]['name'];
+						lastname.value = array[i]['lastname'];
+						age.value = array[i]['age'];
+						city.value = array[i]['city'];
+						email.value = array[i]['email'];
+					}
+					if (array[i]['gender'] == 1) {
+						 male.checked;
+					}
+					else if(array[i]['gender'] == 0){
+						female = female.checked;
+					}
+					if (array[i]['status'] == 1) {
+						online.checked;
+					}
+					else if(array[i]['status'] == 0){
+						offline.checked;
+					}
+				}
+		}
+			
+	</script>
+		
+
+</body>
+</html>

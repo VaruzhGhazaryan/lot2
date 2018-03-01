@@ -1,0 +1,60 @@
+img {
+	width:  22px;
+	height: 22px;
+	}
+table {
+	margin: auto;
+	text-align: center;
+	}
+td {
+	width: 150px;
+	height: 20px;
+	}
+th  {
+	text-align: center;
+	border: 0.5px solid black;
+	}
+#items {
+	display: relative;
+	width: 100px;
+	height: 30px;
+	margin-left: 3%;
+	margin-top: 0.1%;
+}
+.addbutton {
+	float: left;
+	width: 2%;
+	height: 2%;
+	margin-left: 3.7%;
+	margin-top: 0.5%;
+	opacity: 0.6;
+	transition: 0.5s;
+
+}
+.addbutton:hover {
+	cursor: pointer;
+	opacity: 1;
+}
+.remove{
+	opacity: 0.5; 
+	transition: 0.5s;
+}
+.edit{
+	opacity: 0.6;
+	transition: 0.5s;
+}
+.remove:hover {cursor: pointer; opacity: 1}
+.edit:hover {cursor: pointer; opacity: 1}
+.pagination {
+	margin-top: 1%;
+	padding-right: 3%;
+	float: right;
+}
+._div {
+	align: center;
+	margin: auto;
+}
+.m_header{
+	background-color: #8d9e81;
+	color: #000000;
+}
