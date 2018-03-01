@@ -1,4 +1,4 @@
-console.log('list ctrl', App);
+
 
 App.controller('listCtrl', function($scope) {
 	var model = [
