@@ -1,32 +1,117 @@
 <!DOCTYPE html>
-<html ng-app="myFirstApp">
+<html ng-app="dataTable">
 <head>
-	<title>My First AngularJs App</title>
+	<title>Angular JS Data Tablr</title>
 
 	<link rel="stylesheet" type="text/css" href="./libraries/bootstrap/css/bootstrap.min.css">
 	
 	<script type="text/javascript" src="./libraries/angular.min.js"></script>
+    <!--font awesome-->
+    <link href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" rel="stylesheet">
+    <!-- Libraries -->
+    <script type="text/javascript" src="./libraries/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="./libraries/bootstrap/js/bootstrap.min.js"></script>
+    <!--main css file-->
+    <link rel="stylesheet" href="styles/main.css">
 
-	
+
 </head>
-<body ng-controller="listCtrl">
+<body ng-controller="dataTable">
 <div class="container">
-<table class="table">
-		<tr ng-repeat="item in model track by $index">
-			<td>
-				{{ item + ' ' +  $index }}	
-			</td>
+    <button class="btn btn-success" data-toggle="modal" data-target="#person"><i class="fas fa-user-plus" ></i> Add person</button>
+        <!-- Modal -->
+    <div class="modal fade" id="person" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{isEditing ? 'Edit person' : 'Add new person' }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form>
+                        <div class="form-group">
+                            <label for="usr">Name:</label>
+                            <input type="text" class="form-control" id="usr" ng-model="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lst">Lastname:</label>
+                            <input type="text" class="form-control" id="lst" ng-model="lastname" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eml">Email:</label>
+                            <input type="email" class="form-control" id="eml" ng-model="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age:</label>
+                            <input type="number" class="form-control" id="age" ng-model="age" required>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="gender" id="male" ng-model="gender" ng-value="true">Male</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="gender" id="female" ng-model="gender" ng-value="false">Female</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City:</label>
+                            <input type="text" class="form-control" id="city" ng-model="city" required>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="status" id="offline" ng-model="status" ng-value="false">Offline</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="status" id="online" ng-model="status" ng-value="true">Online</label>
+                        </div>
+                        <div class="form-group">
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success form-control"  ng-if="!isEditing" data-dismiss="modal" ng-click="onAdd()">Create</button>
+                    <button type="submit" class="btn btn-success form-control" ng-if="isEditing" data-dismiss="modal" ng-click="onSave()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>name</th>
+        <th>lastname</th>
+        <th>email</th>
+        <th>age</th>
+        <th>gender</th>
+        <th>city</th>
+        <th>status</th>
+        <th></th>
+    </tr>
+    </thead>
+		<tr ng-repeat="person in data">
+			<td>{{$index+1}}</td>
+			<td>{{ person.name }}</td>
+            <td>{{ person.lastname }} </td>
+            <td>{{ person.email }} </td>
+            <td>{{ person.age }} </td>
+            <td ng-class="{ 'male': person.gender, 'female': ! person.gender}"> <i ng-class="{ 'fas fa-mars': person.gender, 'fas fa-venus': !person.gender}"></i> </td>
+            <td>{{ person.city }} </td>
+            <td ng-class="{ 'online': person.status, 'offline': ! person.status}">{{ person.status ? 'Online' : 'Offline' }} </td>
+            <td>
+                <button class="btn btn-danger" ng-click="onRemove(person.id)"><i class="fas fa-trash-alt"></i></button>
+                <button class="btn btn-info"   ng-click="onEdit(person.id)"><i class="fas fa-pencil-alt"></i></button>
+            </td>
 		</tr>
-</table>	
+</table>
+
+
 </div>
-
-
-<!-- Libraries -->
-	<script type="text/javascript" src="./libraries/jquery-3.3.1.min.js"></script>
-	<script type="text/javascript" src="./libraries/bootstrap/js/bootstrap.min.js"></script>
-
 <!-- Components -->
 	<script type="text/javascript" src="app.js"></script>
-	<script type="text/javascript" src="./controllers/list.ctrl.js"></script>
+	<script type="text/javascript" src="controllers/dataTable.controller.js"></script>
+
 </body>
 </html>

@@ -1,1 +1,1 @@
-var App = angular.module('myFirstApp',[]);
+var App = angular.module('dataTable',[]);
