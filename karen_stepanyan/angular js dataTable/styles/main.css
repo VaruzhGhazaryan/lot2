@@ -1,0 +1,19 @@
+body , .table{
+    margin-top:20px;
+}
+
+.online{
+    color: green;
+}
+.offline{
+    color: darkred;
+}
+
+.male{
+    color: blue;
+    font-size:1.5em;
+}
+.female{
+    color: fuchsia;
+    font-size:1.5em;
+}
