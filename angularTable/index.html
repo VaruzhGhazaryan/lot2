@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html ng-app="myFirstApp">
+<head>
+	<title>My First AngularJs App</title>
+
+	<link rel="stylesheet" type="text/css" href="./libraries/bootstrap/css/bootstrap.min.css">
+	
+	<script type="text/javascript" src="./libraries/angular.min.js"></script>
+
+	<style type="text/css">
+		table tr:nth-child(odd) {
+  			background-color: #ffe0b2;
+		}
+		table tr:nth-child(even) {
+  			background-color: #fff3e0 ;
+		}
+		table tr th{
+			color: #e65100;
+			text-align: center;
+			font-size: 18px
+		}
+		table tr td{
+			text-align: center;
+		}
+		.btn-transparent{
+			background-color: transparent;
+		}
+		.btn-transparent:focus{
+			box-shadow: none;
+		}
+		.statuson{
+			color: green;
+		}
+		.statusoff{
+			color: red;
+		}
+		.btn-warning{
+			color: #fff3e0
+		}
+		.btn-warning:hover{
+			color: white;
+			background-color: orange
+		}
+		#addBtn{
+			border: 1px solid black; 
+			border-radius: 5px; 
+			padding: 5px 5px 10px 5px; 
+			outline: none
+		}
+		#addBtn:hover{
+			background-color:#e65100;
+			color: white 
+		}
+	</style>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
+</head>
+
+<body ng-controller="listCtrl" >
+<div class="container">
+	<div style="text-align: center;" class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold" style="color: #e65100">Add Person</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color: #e65100">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="md-form mb-3">
+                    <label><input type="text" name="name" ng-model="name" placeholder="Name"></label>
+                </div>
+                <div class="md-form mb-3">
+                    <label><input type="text" name="surname" ng-model="surname" placeholder="Surname"></label>
+                </div>
+                <div class="md-form mb-3">
+                    <label><input type="text" name="age" ng-model="age" placeholder="Age"></label>
+                </div>
+                <div class="md-form mb-3">
+                    <label><input type="text" name="mail" ng-model="mail" placeholder="E-mail"></label>
+                </div>
+                <div class="md-form mb-3">
+                    <label><input type="text" name="city" ng-model="city" placeholder="City"></label>
+                </div>
+                <div class="md-form mb-3">
+                    <label>Male: <input type="radio" name="gender" ng-model="gender" placeholder=""  value="Male"></label>
+                    <label>Female: <input type="radio" name="gender" ng-model="gender" placeholder="" value="Female"></label>
+                </div>
+                <div class="md-form mb-3">
+                    <label>Online: <input type="radio" name="status" ng-model="status" placeholder="" value="Online"></label>
+                    <label>Offline: <input type="radio" name="status" ng-model="status" placeholder="" value="Offline"></label>
+                </div>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+            	<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="addBtn" data-ng-click="addRow()">
+                    <span aria-hidden="true" >Add</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center">
+    <a href="" class="btn btn-warning mb-4" data-toggle="modal" data-target="#modalRegisterForm">Add Person</a>
+</div>
+</div>
+
+<div class="container col-xs-12">
+<table class="table table-bordered" id="tab">
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Surname</th>
+			<th>Age</th>
+			<th>E-mail</th>
+			<th>City</th>
+			<th>Gender</th>
+			<th>Status</th>
+			<th>Delete</th>
+		</tr>
+		<tr ng-repeat="item in model">
+			<td>{{$index+1}}</td>
+			<td>{{item.name}}</td>
+			<td>{{item.surname}}</td>
+			<td>{{item.age}}</td>
+			<td>{{item["E-mail"]}}</td>
+			<td>{{item.city}}</td>
+			<td><i class="fa fa-{{item.gender =='Male' ? 'mars' : 'venus'}}"></i></td>
+			<!-- <td class="gender">{{GenderIcon(item)}}</td> -->
+			<td class="status{{item.status == 'Online' ? 'on' : 'off'}}">{{item.status}}</td>
+			<td><button  data-ng-click="removeRow($index)" class="btn btn-transparent"><i class="fa fa-trash-o fa-lg"></i></button></td>
+		</tr>
+</table>	
+</div>
+
+
+<!-- Libraries -->
+	<script type="text/javascript" src="./libraries/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="./libraries/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Components -->
+	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="./controllers/list.ctrl.js"></script>
+
+</body>
+</html>
