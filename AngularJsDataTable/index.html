@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html ng-app="myFirstApp">
+<head>
+	<title>My First AngularJs App</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="./libraries/bootstrap/css/bootstrap.min.css">
+	
+	<script type="text/javascript" src="./libraries/angular.min.js"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+	
+</head>
+<body ng-controller="listCtrl">
+	<div class="container">
+  <div class="col-xs-12">
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Registration</button>
+    <div class="modal fade" id="myModal" role="dialog">
+     <div class="modal-dialog">
+    
+        <div class="modal-content">
+          <div class="modal-header">
+          	<h4 class="modal-title">{{isEditing ? 'Edit' : 'Registration'}}</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            
+          </div>
+
+
+        <div class="modal-body">
+           <form >
+                <input placeholder="Name" class="modal_input" ng-model="Name">
+                <br><br><br>
+                <input type="text" placeholder="Surname" class="modal_input" ng-model="Surname">
+                <br><br><br>
+                <input type="text" placeholder="Email" class="modal_input" ng-model="Email">
+                <br><br><br>
+                <input type="number" placeholder="Age" class="modal_input" ng-model="Age">
+                <br><br><br>
+                 <label><input type="radio" name="gender" value="1"  id="gender1" ng-model="Gender">:<i class="fas fa-mars"></i></label>
+                 <label><input type="radio" name="gender" value="0"  id="gender0" ng-model="Gender">:<i class="fas fa-venus"></i></label>
+                  <br><br><br>
+                  <label><input type="radio" name="status" value="1"  id="statustrue" ng-model="Status">:online</label>
+                 <label><input type="radio" name="status" value="0"  id="statusfalse" ng-model="Status">:offline</label>
+                 <br><br><br>
+                <input type="text" placeholder="City" class="modal_input" ng-model="City">
+                <br><br><br>
+                
+           </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="registration()">{{isEditing ? 'Edit' : 'Registration'}}</button>
+        </div>
+    </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<br>
+ <hr>
+	<div ng-cloak>
+		<div class="container">
+		<table class="table table-bordered" style="text-align: center">
+			<thead style="color: blue">
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Surname</th>
+					<th>Email</th>
+					<th>Age</th>
+					<th>Gender</th>
+					<th>City</th>
+					<th>Status</th>
+					<th>Delete</th>
+					<th>Edit</th>
+
+				</tr>
+			</thead>
+				<tr ng-repeat="item in model ">
+					<td>{{$index+1}}</td>
+					<td>{{ item.name }}</td>
+					<td>{{ item.surname }}</td>
+					<td>{{ item.email }}</td>
+					<td>{{ item.age }}	</td>
+					<td><i class="fas fa-{{item.gender ==1 ? 'mars' : 'venus'}}"></i></td>
+					<td>{{ item.city }}	</td>
+					<td><p class="color-{{item.status ==1 ? 'on' : 'of'}}">{{item.status ==1 ? 'online' : 'ofline'}}</p></td>
+					<td><button class="btn btn-danger delete" ng-click="deleteRow($index)">X</button></td>
+					<td>
+						<div class="container">
+						  
+						          <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#myModal" ng-click="editRow(item,$index)">E</button>
+						      </div>
+						</td>
+					</tr>
+				</table>	
+			</div>
+		</div>
+
+
+	<script type="text/javascript" src="./libraries/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="./libraries/bootstrap/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="./controllers/list.ctrl.js"></script>
+
+</body>
+</html>

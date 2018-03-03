@@ -1,0 +1,42 @@
+body{
+  margin: 50px;
+  padding: 50px;
+}
+p{
+  text-align: center;
+}
+  .trth{
+    color: blue;
+    border:1px solid black;
+    height: 30px;
+    padding: 5px;
+    margin: 10px;
+    text-align: center;
+  }
+  td{
+    border:1px solid black;
+    height: 30px;
+    padding: 5px;
+    text-align: center;
+  }
+  table{
+  border-collapse: collapse;
+	margin: 0 auto;
+  }
+  
+  .color-on{
+      color: green;
+    }
+    .color-of{
+      color: red;
+    }
+  .modal-input{
+	margin:0 auto; 
+  border-radius: 8px; 
+  }
+  div{
+    margin: 0 auto;
+    text-align:center;
+  }
+
+
